@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏥 Health Diagnostic Assistant - Complete Standalone App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-controls select,
+        .menu-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .header-controls select:hover,
+        .menu-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .nav-menu {
+            background: #f8f9fa;
+            padding: 0;
+            display: none;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .nav-menu.active {
+            display: block;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 15px;
+            color: #333;
+            text-decoration: none;
+            border-right: 1px solid #ddd;
+            transition: 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .main-content {
+            padding: 30px;
+            min-height: 500px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .welcome h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .welcome p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff5252;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .symptom-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .symptom-input textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .results {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .medicine-search {
+            margin-bottom: 20px;
+        }
+
+        .medicine-search input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .medicine-category {
+            margin-bottom: 25px;
+        }
+
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .cat-btn {
+            padding: 8px 16px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .cat-btn:hover,
+        .cat-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .medicine-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .medicine-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: 0.3s;
+        }
+
+        .medicine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .medicine-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .medicine-card p {
+            color: #666;
+            font-size: 13px;
+            margin: 5px 0;
+        }
+
+        .medicine-card .category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .hospital-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .hospital-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .hospital-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .hospital-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .reminder-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .reminder-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .reminder-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .reminder-card button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .medicine-list,
+            .hospital-list,
+            .reminder-list {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏥 Health Diagnostic Assistant</h1>
+            <div class="header-controls">
+                <select id="languageSelect" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="kn">ಕನ್ನಡ</option>
+                </select>
+                <button onclick="toggleMenu()" class="menu-btn">☰ Menu</button>
+            </div>
+        </header>
+
+        <nav class="nav-menu" id="navMenu">
+            <ul>
+                <li><a onclick="showSection('home')">🏠 Home</a></li>
+                <li><a onclick="showSection('symptoms')">🔍 Symptom Checker</a></li>
+                <li><a onclick="showSection('medicines')">💊 Medicine Database</a></li>
+                <li><a onclick="showSection('hospitals')">🏥 Find Hospital</a></li>
+                <li><a onclick="showSection('reminders')">⏰ Medicine Reminders</a></li>
+                <li><a onclick="showSection('profile')">👤 Profile</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <section id="home" class="section active">
+                <div class="welcome">
+                    <h2>Welcome to Health Assistant</h2>
+                    <p id="welcomeText">Tell us about your health concerns, and we'll help you!</p>
+                    <div class="quick-actions">
+                        <button onclick="showSection('symptoms')" class="btn btn-primary">Start Symptom Check</button>
+                        <button onclick="startVoiceCommand()" class="btn btn-secondary">🎤 Voice Command</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="symptoms" class="section">
+                <h2 id="symptomsTitle">Symptom Checker</h2>
+                <div class="symptom-input">
+                    <textarea id="symptomInput" placeholder="Describe your symptoms in your own words..." rows="4"></textarea>
+                    <button onclick="analyzeSymptomsVoice()" class="btn btn-secondary">🎤 Speak</button>
+                    <button onclick="analyzeSymptoms()" class="btn btn-primary">Analyze</button>
+                </div>
+                <div id="resultDiv" class="results"></div>
+            </section>
+
+            <section id="medicines" class="section">
+                <h2 id="medicinesTitle">Medicine Database</h2>
+                <div class="medicine-search">
+                    <input type="text" id="medicineSearch" placeholder="Search medicine name..." onkeyup="searchMedicines()">
+                </div>
+                <div class="medicine-category">
+                    <h3 id="categoriesTitle">Categories</h3>
+                    <div class="category-buttons">
+                        <button onclick="filterByCategory('Pain Relief')" class="cat-btn">Pain</button>
+                        <button onclick="filterByCategory('Allergy')" class="cat-btn">Allergy</button>
+                        <button onclick="filterByCategory('Digestive Health')" class="cat-btn">Digestive</button>
+                    </div>
+                </div>
+                <div id="medicineList" class="medicine-list"></div>
+            </section>
+
+            <section id="hospitals" class="section">
+                <h2 id="hospitalsTitle">Find Nearby Hospital</h2>
+                <div class="hospital-input">
+                    <input type="text" id="hospitalLocation" placeholder="Enter your location or city">
+                    <button onclick="findHospitals()" class="btn btn-primary">Find Hospitals</button>
+                </div>
+                <div id="hospitalList" class="hospital-list"></div>
+            </section>
+
+            <section id="reminders" class="section">
+                <h2 id="remindersTitle">Medicine Reminders</h2>
+                <div class="reminder-form">
+                    <input type="text" id="medicineName" placeholder="Medicine name">
+                    <input type="number" id="doseCount" placeholder="Dose count" value="1">
+                    <select id="reminderTime">
+                        <option value="morning">Morning (8 AM)</option>
+                        <option value="afternoon">Afternoon (1 PM)</option>
+                        <option value="evening">Evening (6 PM)</option>
+                        <option value="night">Night (10 PM)</option>
+                        <option value="midnight">Midnight (12 AM)</option>
+                    </select>
+                    <button onclick="addReminder()" class="btn btn-primary">Add Reminder</button>
+                </div>
+                <div id="reminderList" class="reminder-list"></div>
+            </section>
+
+            <section id="profile" class="section">
+                <h2 id="profileTitle">Profile</h2>
+                <div class="profile-form">
+                    <div class="form-group">
+                        <label for="phoneNumber" id="phoneLabel">Phone Number:</label>
+                        <input type="tel" id="phoneNumber" placeholder="+91 98765 43210">
+                        <button onclick="savePhoneNumber()" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="location" id="locationLabel">Location:</label>
+                        <input type="text" id="location" placeholder="City/Address">
+                        <button onclick="saveLocation()" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="form-group">
+                        <button onclick="logout()" class="btn btn-danger">Logout</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Complete medicine database embedded
+        const medicinesDatabase = [
+            {id:1,name:"Paracetamol",category:"Pain Relief",uses:"Fever, headache, body pain",dosage:"500mg 1-2 tablets every 4-6 hours",sideEffects:"Mild nausea, allergic reactions",precautions:"Max 4000mg/day",images:"💊",country:"UK",brand_names:"Tylenol, Panadol"},
+            {id:2,name:"Ibuprofen",category:"Pain Relief",uses:"Pain, inflammation, fever",dosage:"400mg 1-2 tablets every 6-8 hours",sideEffects:"Stomach upset, nausea",precautions:"Take with food",images:"💊",country:"USA",brand_names:"Advil, Motrin"},
+            {id:3,name:"Aspirin",category:"Pain Relief",uses:"Pain, fever, heart protection",dosage:"325-500mg daily",sideEffects:"Stomach irritation, bleeding",precautions:"Take with food",images:"💊",country:"Germany",brand_names:"Bayer Aspirin"},
+            {id:4,name:"Diclofenac",category:"Pain Relief",uses:"Severe pain, inflammation, arthritis",dosage:"50mg 1-2 tablets every 6-8 hours",sideEffects:"Stomach pain, nausea",precautions:"Take with food",images:"💊",country:"Germany",brand_names:"Voltaren"},
+            {id:5,name:"Cetirizine",category:"Allergy",uses:"Allergies, urticaria, itching",dosage:"10mg once or twice daily",sideEffects:"Drowsiness, dry mouth",precautions:"May cause drowsiness",images:"💊",country:"Belgium",brand_names:"Zyrtec, Piriteze"},
+            {id:6,name:"Loratadine",category:"Allergy",uses:"Allergies, hay fever, urticaria",dosage:"10mg once daily",sideEffects:"Drowsiness, headache",precautions:"Non-drowsy available",images:"💊",country:"USA",brand_names:"Claritin"},
+            {id:7,name:"Omeprazole",category:"Digestive Health",uses:"Acidity, GERD, ulcers",dosage:"20mg once daily before meals",sideEffects:"Headache, nausea",precautions:"Take 30 minutes before meals",images:"💊",country:"Sweden",brand_names:"Prilosec"},
+            {id:8,name:"Antacid",category:"Digestive Health",uses:"Heartburn, acidity, indigestion",dosage:"2 tablets after meals",sideEffects:"Constipation, nausea",precautions:"Don't take with other meds",images:"💊",country:"USA",brand_names:"Tums, Maalox"},
+            {id:9,name:"Loperamide",category:"Digestive Health",uses:"Diarrhea, loose stools",dosage:"2mg initially, then after each stool",sideEffects:"Constipation if overused",precautions:"Max 8mg/day",images:"💊",country:"USA",brand_names:"Imodium"},
+            {id:10,name:"Saline Nasal Spray",category:"ENT",uses:"Nasal congestion, sinusitis",dosage:"1-2 sprays 2-3 times daily",sideEffects:"None significant",precautions:"Safe for all ages",images:"🧴",country:"Multiple",brand_names:"Sterimar"}
+        ];
+
+        // Translations
+        const translations = {
+            en: {
+                welcomeText: "Tell us about your health concerns, and we'll help you!",
+                symptomsTitle: "Symptom Checker",
+                medicinesTitle: "Medicine Database",
+                hospitalsTitle: "Find Nearby Hospital",
+                remindersTitle: "Medicine Reminders",
+                profileTitle: "Profile",
+                phoneLabel: "Phone Number:",
+                locationLabel: "Location:",
+                categoriesTitle: "Categories"
+            },
+            hi: {
+                welcomeText: "हमें अपनी स्वास्थ्य समस्याओं के बारे में बताएं!",
+                symptomsTitle: "लक्षण जांचकर्ता",
+                medicinesTitle: "दवाई डेटाबेस",
+                hospitalsTitle: "पास के अस्पताल खोजें",
+                remindersTitle: "दवाई रिमाइंडर",
+                profileTitle: "प्रोफाइल",
+                phoneLabel: "फोन नंबर:",
+                locationLabel: "स्थान:",
+                categoriesTitle: "श्रेणियाँ"
+            },
+            ta: {
+                welcomeText: "உங்கள் சுகாதார பிரச்சனைகளைப் பற்றி சொல்லுங்கள்!",
+                symptomsTitle: "அறிகுறி சரிபார்ப்பான்",
+                medicinesTitle: "மருந்து தரவுதளம்",
+                hospitalsTitle: "அருகில் உள்ள மருத்துவமனைகளைக் கண்டறியவும்",
+                remindersTitle: "மருந்து நினைவூட்டல்கள்",
+                profileTitle: "சுயவிவரம்",
+                phoneLabel: "ஃபோன் எண்:",
+                locationLabel: "இருப்பிடம்:",
+                categoriesTitle: "வகைகள்"
+            },
+            te: {
+                welcomeText: "మీ ఆరోగ్య సమస్యల గురించి మాకు చెప్పండి!",
+                symptomsTitle: "లక్షణ చెకర్",
+                medicinesTitle: "ఔషధ డేటాబేస్",
+                hospitalsTitle: "సమీపంలో ఉన్న ఆసుపత్రిని కనుగొనండి",
+                remindersTitle: "ఔషధ రిమైండర్‌లు",
+                profileTitle: "ప్రొఫైల్",
+                phoneLabel: "ఫోన్ నంబర్:",
+                locationLabel: "స్థానం:",
+                categoriesTitle: "విభాగాలు"
+            },
+            kn: {
+                welcomeText: "ನಿಮ್ಮ ಆರೋಗ್ಯ ಸಮಸ್ಯೆಗಳ ಬಗ್ಗೆ ನಮಗೆ ಹೇಳಿ!",
+                symptomsTitle: "ರೋಗಲಕ್ಷಣ ಪರಿಶೋಧಕ",
+                medicinesTitle: "ಔಷಧ ಡೇಟಾಬೇಸ್",
+                hospitalsTitle: "ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಯನ್ನು ಹುಡುಕಿ",
+                remindersTitle: "ಔಷಧ ಸ್ಮರಣೆಗಳು",
+                profileTitle: "ಪ್ರೊಫೈಲ್",
+                phoneLabel: "ಫೋನ್ ನಿಂದ್ರಾ:",
+                locationLabel: "ಸ್ಥಳ:",
+                categoriesTitle: "ವಿಭಾಗಗಳು"
+            }
+        };
+
+        let currentLanguage = 'en';
+        let reminders = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLogin();
+            displayMedicines(medicinesDatabase);
+            updateUI();
+            loadReminders();
+        });
+
+        function checkLogin() {
+            if (!localStorage.getItem('isLoggedIn')) {
+                const phone = prompt("Enter your phone number to login:");
+                if (phone) {
+                    localStorage.setItem('phoneNumber', phone);
+                    localStorage.setItem('isLoggedIn', 'true');
+                }
+            }
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            updateUI();
+            displayMedicines(medicinesDatabase);
+        }
+
+        function updateUI() {
+            document.getElementById('welcomeText').textContent = translations[currentLanguage].welcomeText;
+            document.getElementById('symptomsTitle').textContent = translations[currentLanguage].symptomsTitle;
+            document.getElementById('medicinesTitle').textContent = translations[currentLanguage].medicinesTitle;
+            document.getElementById('hospitalsTitle').textContent = translations[currentLanguage].hospitalsTitle;
+            document.getElementById('remindersTitle').textContent = translations[currentLanguage].remindersTitle;
+            document.getElementById('profileTitle').textContent = translations[currentLanguage].profileTitle;
+            document.getElementById('phoneLabel').textContent = translations[currentLanguage].phoneLabel;
+            document.getElementById('locationLabel').textContent = translations[currentLanguage].locationLabel;
+            document.getElementById('categoriesTitle').textContent = translations[currentLanguage].categoriesTitle;
+        }
+
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById('navMenu').classList.remove('active');
+        }
+
+        function analyzeSymptoms() {
+            const symptomText = document.getElementById('symptomInput').value;
+            if (!symptomText.trim()) {
+                alert("Please describe your symptoms");
+                return;
+            }
+            const resultDiv = document.getElementById('resultDiv');
+            resultDiv.innerHTML = `<div class="result-item"><h4>✅ Analysis</h4><p>For: ${symptomText}</p><p>💊 Suggested: Check medicine database for relevant medicines</p><p>⚠️ If symptoms persist beyond 3 days, consult a doctor</p></div>`;
+        }
+
+        function analyzeSymptomsVoice() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert("Speech Recognition not supported");
+                return;
+            }
+            const recognition = new SpeechRecognition();
+            recognition.start();
+            recognition.onresult = function(event) {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                document.getElementById('symptomInput').value = transcript;
+            };
+        }
+
+        function startVoiceCommand() {
+            analyzeSymptomsVoice();
+        }
+
+        function displayMedicines(medicines) {
+            const medicineList = document.getElementById('medicineList');
+            medicineList.innerHTML = '';
+            medicines.forEach(medicine => {
+                const card = document.createElement('div');
+                card.className = 'medicine-card';
+                card.innerHTML = `
+                    <div>${medicine.images}</div>
+                    <h4>${medicine.name}</h4>
+                    <p><strong>Uses:</strong> ${medicine.uses}</p>
+                    <p><strong>Dosage:</strong> ${medicine.dosage}</p>
+                    <p><strong>Side Effects:</strong> ${medicine.sideEffects}</p>
+                    <p><strong>Precautions:</strong> ${medicine.precautions}</p>
+                    <p><strong>Brand:</strong> ${medicine.brand_names}</p>
+                    <span class="category">${medicine.category}</span>
+                `;
+                medicineList.appendChild(card);
+            });
+        }
+
+        function searchMedicines() {
+            const query = document.getElementById('medicineSearch').value.toLowerCase();
+            const filtered = medicinesDatabase.filter(m => 
+                m.name.toLowerCase().includes(query) ||
+                m.uses.toLowerCase().includes(query)
+            );
+            displayMedicines(filtered);
+        }
+
+        function filterByCategory(category) {
+            const filtered = medicinesDatabase.filter(m => m.category === category);
+            displayMedicines(filtered);
+        }
+
+        function findHospitals() {
+            const location = document.getElementById('hospitalLocation').value;
+            const hospitalList = document.getElementById('hospitalList');
+            if (!location) {
+                alert("Please enter your location");
+                return;
+            }
+            const hospitals = [
+                {name: "City Medical Hospital", address: `Near ${location}`, phone: "04123456789"},
+                {name: "Health Care Center", address: `Downtown ${location}`, phone: "04198765432"},
+                {name: "Emergency Hospital", address: `Main Road ${location}`, phone: "04156789012"}
+            ];
+            hospitalList.innerHTML = hospitals.map(h => `
+                <div class="hospital-card">
+                    <h4>🏥 ${h.name}</h4>
+                    <p><strong>Address:</strong> ${h.address}</p>
+                    <p><strong>Phone:</strong> <a href="tel:${h.phone}">${h.phone}</a></p>
+                </div>
+            `).join('');
+        }
+
+        function addReminder() {
+            const medicineName = document.getElementById('medicineName').value;
+            const doseCount = document.getElementById('doseCount').value;
+            const reminderTime = document.getElementById('reminderTime').value;
+            if (!medicineName) {
+                alert("Please enter medicine name");
+                return;
+            }
+            reminders.push({id: Date.now(), medicine: medicineName, dose: doseCount, time: reminderTime});
+            localStorage.setItem('reminders', JSON.stringify(reminders));
+            displayReminders();
+            document.getElementById('medicineName').value = '';
+        }
+
+        function displayReminders() {
+            const reminderList = document.getElementById('reminderList');
+            reminderList.innerHTML = reminders.map(r => `
+                <div class="reminder-card">
+                    <h4>⏰ ${r.medicine}</h4>
+                    <p><strong>Dose:</strong> ${r.dose} tablet(s)</p>
+                    <p><strong>Time:</strong> ${r.time}</p>
+                    <button onclick="deleteReminder(${r.id})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteReminder(id) {
+            reminders = reminders.filter(r => r.id !== id);
+            localStorage.setItem('reminders', JSON.stringify(reminders));
+            displayReminders();
+        }
+
+        function loadReminders() {
+            const saved = localStorage.getItem('reminders');
+            if (saved) {
+                reminders = JSON.parse(saved);
+                displayReminders();
+            }
+        }
+
+        function savePhoneNumber() {
+            const phone = document.getElementById('phoneNumber').value;
+            if (phone) {
+                localStorage.setItem('phoneNumber', phone);
+                alert("Phone number saved!");
+            }
+        }
+
+        function saveLocation() {
+            const location = document.getElementById('location').value;
+            if (location) {
+                localStorage.setItem('location', location);
+                alert("Location saved!");
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+</body>
+</html>
