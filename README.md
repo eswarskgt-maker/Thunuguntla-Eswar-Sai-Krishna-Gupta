@@ -265,7 +265,10 @@ This project is open source and available under the MIT License.
 ## Support 📞
 
 For issues, questions, or suggestions, please create an issue in the repository or contact the development team.
-
+eswarskgt@gmail.com
 ---
+## Developed By
+
+T.Eswar Sai Krishna Gupta.
 
 **Made with ❤️ for better healthcare accessibility**
