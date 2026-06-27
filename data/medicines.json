@@ -1,0 +1,7 @@
+[
+  { "name": "Paracetamol", "uses": "Fever, pain", "dosage": "500-1000mg every 4-6h (max 4g/day adult)" },
+  { "name": "Ibuprofen", "uses": "Pain, inflammation, fever", "dosage": "200-400mg every 4-6h (OTC limits apply)" },
+  { "name": "Cetirizine", "uses": "Allergy", "dosage": "10mg once daily" },
+  { "name": "Amoxicillin", "uses": "Bacterial infections (prescribed)", "dosage": "Follow prescription" },
+  { "name": "Aspirin", "uses": "Pain, antiplatelet", "dosage": "See label" }
+]

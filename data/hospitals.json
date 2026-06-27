@@ -1,0 +1,5 @@
+[
+  { "name": "City General Hospital", "address": "45 Main St", "city": "Midtown", "lat": 37.7749, "lng": -122.4194, "phone": "(555)111-2222" },
+  { "name": "Harborview Medical Center", "address": "100 Harbor Rd", "city": "Bay Area", "lat": 37.8021, "lng": -122.4187, "phone": "(555)333-4444" },
+  { "name": "Green Valley Clinic", "address": "12 Oak St", "city": "Green Valley", "lat": 37.7599, "lng": -122.4148, "phone": "(555)555-0101" }
+]

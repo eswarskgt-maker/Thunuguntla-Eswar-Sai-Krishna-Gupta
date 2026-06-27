@@ -1,0 +1,45 @@
+/* style.css - styles for Medical Assistant demo */
+:root{
+  --bg:#0f1724;
+  --card:#0b1220;
+  --glass: rgba(255,255,255,0.04);
+  --accent:#6ee7b7;
+  --accent-2:#60a5fa;
+  --muted:#9aa7bf;
+  --danger:#ff6b6b;
+  font-family:Inter, system-ui, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,#071025 0%, #071827 60%);color:#e6eef8}
+.app{max-width:1150px;margin:20px auto;padding:18px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+h1{margin:0;font-size:20px;letter-spacing:0.2px}
+.sub{color:var(--muted);font-size:13px}
+.topbar{display:flex;gap:12px;align-items:center}
+.btn{background:linear-gradient(90deg,var(--accent-2),var(--accent));color:#021024;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600;box-shadow:0 8px 30px rgba(96,165,250,0.08)}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:10px;color:var(--muted);cursor:pointer}
+main{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:18px}
+@media (max-width:1020px){ main{grid-template-columns:1fr} .right-column{order:2} }
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03)}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+textarea,input[type="text"],input[type="tel"],select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;font-size:14px}
+#symptom-area{display:grid;grid-template-columns:1fr 320px;gap:14px}
+@media (max-width:860px){#symptom-area{grid-template-columns:1fr}}
+.result-item{background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);margin-bottom:10px}
+.muted{color:var(--muted);font-size:13px}
+.search-row{display:flex;gap:8px;margin-bottom:12px}
+.med-list{max-height:420px;overflow:auto;padding-right:6px}
+.med-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);margin-bottom:8px}
+#map{height:220px;border-radius:10px;margin-bottom:10px}
+.right-column{display:flex;flex-direction:column;gap:12px}
+.reminder-item{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);margin-bottom:8px}
+.pill{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
+.chat-window{height:300px;overflow:auto;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+.message{margin:8px 0;padding:8px;border-radius:10px;max-width:80%}
+.from-user{background:linear-gradient(90deg,#06202f,#083046);margin-left:auto}
+.from-assistant{background:linear-gradient(90deg,#05222a,#06313b)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:60}
+.modal{width:420px;max-width:95%;background:linear-gradient(180deg,#071428,#02101a);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.close-x{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:18px}
+footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+.flex{display:flex;gap:8px;align-items:center}.space{flex:1}.small{font-size:13px}

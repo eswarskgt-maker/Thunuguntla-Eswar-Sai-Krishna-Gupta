@@ -1,547 +1,149 @@
-// Language translations - Complete
-const translations = {
-    en: {
-        welcomeText: "Tell us about your health concerns, and we'll help you!",
-        symptomsTitle: "Symptom Checker",
-        medicinesTitle: "Medicine Database",
-        hospitalsTitle: "Find Nearby Hospital",
-        remindersTitle: "Medicine Reminders",
-        profileTitle: "Profile",
-        phoneLabel: "Phone Number:",
-        locationLabel: "Location:",
-        settingsLabel: "Settings",
-        categoriesTitle: "Categories",
-        searchPlaceholder: "Search medicine name...",
-        usesLabel: "Uses",
-        dosageLabel: "Dosage",
-        sideEffectsLabel: "Side Effects",
-        precautionsLabel: "Precautions",
-        brandNamesLabel: "Brand Names",
-        countryLabel: "Country"
-    },
-    hi: {
-        welcomeText: "हमें अपनी स्वास्थ्य समस्याओं के बारे में बताएं!",
-        symptomsTitle: "लक्षण जांचकर्ता",
-        medicinesTitle: "दवाई डेटाबेस",
-        hospitalsTitle: "पास के अस्पताल खोजें",
-        remindersTitle: "दवाई रिमाइंडर",
-        profileTitle: "प्रोफाइल",
-        phoneLabel: "फोन नंबर:",
-        locationLabel: "स्थान:",
-        settingsLabel: "सेटिंग्स",
-        categoriesTitle: "श्रेणियाँ",
-        searchPlaceholder: "दवाई का नाम खोजें...",
-        usesLabel: "उपयोग",
-        dosageLabel: "खुराक",
-        sideEffectsLabel: "दुष्प्रभाव",
-        precautionsLabel: "सावधानियां",
-        brandNamesLabel: "ब्रांड नाम",
-        countryLabel: "देश"
-    },
-    ta: {
-        welcomeText: "உங்கள் சுகாதார பிரச்சனைகளைப் பற்றி சொல்லுங்கள்!",
-        symptomsTitle: "அறிகுறி சரிபார்ப்பான்",
-        medicinesTitle: "மருந்து தரவுதளம்",
-        hospitalsTitle: "அருகில் உள்ள மருத்துவமனைகளைக் கண்டறியவும்",
-        remindersTitle: "மருந்து நினைவூட்டல்கள்",
-        profileTitle: "சுயவிவரம்",
-        phoneLabel: "ஃபோன் எண்:",
-        locationLabel: "இருப்பிடம்:",
-        settingsLabel: "அமைப்புகள்",
-        categoriesTitle: "வகைகள்",
-        searchPlaceholder: "மருந்து பெயர் தேடுக...",
-        usesLabel: "பயன்கள்",
-        dosageLabel: "அளவு",
-        sideEffectsLabel: "பக்க விளைவுகள்",
-        precautionsLabel: "எச்சரிக்கைகள்",
-        brandNamesLabel: "ப்ராண்ட் பெயர்கள்",
-        countryLabel: "நாடு"
-    },
-    te: {
-        welcomeText: "మీ ఆరోగ్య సమస్యల గురించి మాకు చెప్పండి!",
-        symptomsTitle: "లక్షణ చెకర్",
-        medicinesTitle: "ఔషధ డేటాబేస్",
-        hospitalsTitle: "సమీపంలో ఉన్న ఆసుపత్రిని కనుగొనండి",
-        remindersTitle: "ఔషధ రిమైండర్‌లు",
-        profileTitle: "ప్రొఫైల్",
-        phoneLabel: "ఫోన్ నంబర్:",
-        locationLabel: "స్థానం:",
-        settingsLabel: "సెట్టింగ్‌లు",
-        categoriesTitle: "విభాగాలు",
-        searchPlaceholder: "ఔషధ పేరు సెర్చ్ చేయండి...",
-        usesLabel: "ఉపయోగాలు",
-        dosageLabel: "మోతాదు",
-        sideEffectsLabel: "దుష్ప్రభావాలు",
-        precautionsLabel: "జాగ్రత్తలు",
-        brandNamesLabel: "బ్రాండ్ పేర్లు",
-        countryLabel: "దేశం"
-    },
-    kn: {
-        welcomeText: "ನಿಮ್ಮ ಆರೋಗ್ಯ ಸಮಸ್ಯೆಗಳ ಬಗ್ಗೆ ನಮಗೆ ಹೇಳಿ!",
-        symptomsTitle: "ರೋಗಲಕ್ಷಣ ಪರಿಶೋಧಕ",
-        medicinesTitle: "ಔಷಧ ಡೇಟಾಬೇಸ್",
-        hospitalsTitle: "ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಯನ್ನು ಹುಡುಕಿ",
-        remindersTitle: "ಔಷಧ ಸ್ಮರಣೆಗಳು",
-        profileTitle: "ಪ್ರೊಫೈಲ್",
-        phoneLabel: "ಫೋನ್ ನಿಂದ್ರಾ:",
-        locationLabel: "ಸ್ಥಳ:",
-        settingsLabel: "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
-        categoriesTitle: "ವಿಭಾಗಗಳು",
-        searchPlaceholder: "ಔಷಧ ಹೆಸರು ಹುಡುಕಿ...",
-        usesLabel: "ಉಪಯೋಗಗಳು",
-        dosageLabel: "ಮಾತ್ರೆ",
-        sideEffectsLabel: "ಅಡ್ಡ ಪರಿಣಾಮಗಳು",
-        precautionsLabel: "ಸಾವಧಾನತೆಗಳು",
-        brandNamesLabel: "ಬ್ರಾಂಡ್ ಹೆಸರುಗಳು",
-        countryLabel: "ದೇಶ"
-    }
+/* app.js - logic for Medical Assistant demo */
+
+const storage = {
+  get(key, fallback=null){ try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }catch(e){return fallback} },
+  set(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
 };
 
-// Medicine translations
-const medicineTranslations = {
-    uses: {
-        en: "Uses",
-        hi: "उपयोग",
-        ta: "பயன்கள்",
-        te: "ఉపయోగాలు",
-        kn: "ಉಪಯೋಗಗಳು"
-    },
-    dosage: {
-        en: "Dosage",
-        hi: "खुराक",
-        ta: "அளவு",
-        te: "మోతాదు",
-        kn: "ಮಾತ್ರೆ"
-    },
-    sideEffects: {
-        en: "Side Effects",
-        hi: "दुष्प्रभाव",
-        ta: "பக்க விளைவுகள்",
-        te: "దుష్ప్రభావాలు",
-        kn: "ಅಡ್ಡ ಪರಿಣಾಮಗಳು"
-    },
-    precautions: {
-        en: "Precautions",
-        hi: "सावधानियां",
-        ta: "எச்சரிக்கைகள்",
-        te: "జాగ్రత్తలు",
-        kn: "ಸಾವಧಾನತೆಗಳು"
-    },
-    brandNames: {
-        en: "Brand Names",
-        hi: "ब्रांड नाम",
-        ta: "ப்ராண்ட் பெயர்கள்",
-        te: "బ్రాండ్ పేర్లు",
-        kn: "ಬ್ರಾಂಡ್ ಹೆಸರುಗಳು"
-    },
-    country: {
-        en: "Country",
-        hi: "देश",
-        ta: "நாடு",
-        te: "దేశం",
-        kn: "ದೇಶ"
-    }
-};
+function showUser(user){ const ui = document.getElementById('user-info'); const ad = document.getElementById('acct-details'); if(user){ ui.textContent = user.name || user.phone || 'Signed in'; ad.textContent = `Logged in: ${user.name || user.phone}`; } else { ui.textContent = 'Not signed in'; ad.textContent = 'No user'; } }
+let currentUser = storage.get('ma_user', null); showUser(currentUser);
 
-let currentLanguage = 'en';
-let medicinesData = [];
-let reminders = [];
-let userProfile = {
-    phoneNumber: localStorage.getItem('phoneNumber') || '',
-    location: localStorage.getItem('location') || '',
-    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true'
-};
+/* Login modal and flows */
+const loginModal = document.getElementById('login-modal');
+document.getElementById('open-login').addEventListener('click', ()=> loginModal.style.display='flex');
+document.getElementById('open-login-2').addEventListener('click', ()=> loginModal.style.display='flex');
+document.getElementById('close-login').addEventListener('click', ()=> loginModal.style.display='none');
 
-// Initialize app
-document.addEventListener('DOMContentLoaded', function() {
-    loadMedicines();
-    checkLogin();
-    updateUI();
+let currentOtp = null, otpPhone = null;
+document.getElementById('send-otp').addEventListener('click', ()=>{
+  const phone = document.getElementById('phone-input').value.trim();
+  if(!phone){ alert('Enter a phone number'); return; }
+  otpPhone = phone;
+  currentOtp = Math.floor(100000 + Math.random()*900000).toString();
+  alert('Demo OTP (use to verify): ' + currentOtp);
+  document.getElementById('otp-code').focus();
 });
 
-// Load medicines from JSON
-async function loadMedicines() {
-    try {
-        const response = await fetch('medicines.json');
-        const data = await response.json();
-        medicinesData = data.medicines;
-        displayMedicines(medicinesData);
-    } catch (error) {
-        console.error('Error loading medicines:', error);
-    }
+document.getElementById('verify-otp').addEventListener('click', ()=>{
+  const code = document.getElementById('otp-code').value.trim();
+  if(!currentOtp || code !== currentOtp){ alert('Invalid OTP'); return; }
+  currentUser = { phone: otpPhone, name: 'User ' + (otpPhone.slice(-4)) };
+  storage.set('ma_user', currentUser);
+  showUser(currentUser);
+  loginModal.style.display='none';
+  currentOtp = null; otpPhone = null; alert('Signed in as ' + currentUser.name);
+});
+
+// Mock Google
+document.getElementById('google-signin').addEventListener('click', ()=>{
+  currentUser = { name: 'Google User', email: 'user@example.com' };
+  storage.set('ma_user', currentUser);
+  showUser(currentUser);
+  loginModal.style.display='none';
+  alert('Signed in (demo) as ' + currentUser.name + '. To enable real Google OAuth, create an OAuth client and follow Google docs.');
+});
+
+/* Symptom rules */
+const symptomRules = [
+  { condition: "Common Cold / Allergy", keywords:["runny","nasal","sneeze","sneezing","itchy","congestion","sore throat","cough","mild"], description:"Often viral or allergic", advice:"Rest & hydration; consult physician if worsening" },
+  { condition: "Flu", keywords:["fever","chills","muscle","aches","fatigue","headache","high fever"], description:"Flu may cause high fever & body aches", advice:"Consider medical care if severe" },
+  { condition: "Migraine", keywords:["headache","nausea","vomit","sensitivity","aura","throbbing"], description:"Intense unilateral headache", advice:"Avoid triggers; seek care for sudden severe onset" },
+  { condition: "Gastroenteritis", keywords:["diarrhea","vomit","nausea","stomach","cramp"], description:"Stomach bug; keep hydrated", advice:"See doctor if dehydration or blood in stool" },
+  { condition: "Strep throat", keywords:["sore throat","fever","tonsils","swollen","white patches"], description:"Bacterial infection sometimes", advice:"Seek testing and antibiotics if confirmed" }
+];
+
+function tokenize(text){ return text.toLowerCase().replace(/[^\w\s]/g,' ').split(/\s+/).filter(Boolean); }
+function checkSymptoms(text){ const tokens = tokenize(text); if(!tokens.length) return []; const res = []; symptomRules.forEach(rule=>{ let matches=0; rule.keywords.forEach(k=>{ if(tokens.some(t=>t.includes(k) || k.includes(t))) matches++; }); if(matches>0) res.push({ ...rule, score: Math.round(matches / rule.keywords.length * 100) }); }); return res.sort((a,b)=>b.score-a.score); }
+
+document.getElementById('check-btn').addEventListener('click', ()=>{
+  const text = document.getElementById('symptoms-input').value.trim(); const out = document.getElementById('symptom-results'); out.innerHTML=''; if(!text){ out.innerHTML='<div class="muted">Please enter symptoms.</div>'; return; } const res = checkSymptoms(text); if(!res.length){ out.innerHTML='<div class="muted">No close matches. Consider more detail or consult a clinician.</div>'; return; } res.slice(0,6).forEach(r=>{ const d = document.createElement('div'); d.className='result-item'; d.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${r.condition}</strong><div class="muted">${r.description}</div></div><div style="text-align:right;color:var(--accent);font-weight:700">${r.score}%</div></div><div class="muted" style="margin-top:8px"><strong>Advice:</strong> ${r.advice}</div>`; out.appendChild(d); });
+});
+document.getElementById('clear-btn').addEventListener('click', ()=>{ document.getElementById('symptoms-input').value=''; document.getElementById('symptom-results').innerHTML=''; });
+
+/* Medicines: sample and OpenFDA */
+async function searchMedicinesOnline(query){
+  const encoded = encodeURIComponent(query);
+  const url = `https://api.fda.gov/drug/label.json?search=openfda.brand_name:${encoded}+OR+openfda.generic_name:${encoded}&limit=12`;
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('API error ' + res.status);
+  const data = await res.json();
+  const items = (data.results||[]).map(r=>{
+    const of = r.openfda || {}; const name = (of.brand_name || of.generic_name || ['Unknown'])[0];
+    const uses = (r.indications_and_usage && r.indications_and_usage[0]) || of.pharm_class || r.description || 'See label';
+    const dosage = (r.dosage_and_administration && r.dosage_and_administration[0]) || 'See label';
+    return { name, uses: (typeof uses==='string') ? uses.slice(0,220) : 'See label', dosage: (typeof dosage==='string') ? dosage.slice(0,200) : 'See label' };
+  });
+  return items;
 }
 
-// Check login status
-function checkLogin() {
-    if (!userProfile.isLoggedIn) {
-        const phone = prompt("Enter your phone number to login:");
-        if (phone) {
-            userProfile.phoneNumber = phone;
-            userProfile.isLoggedIn = true;
-            localStorage.setItem('phoneNumber', phone);
-            localStorage.setItem('isLoggedIn', 'true');
-        }
-    }
+const medListEl = document.getElementById('med-list');
+const medSearchInput = document.getElementById('med-search');
+let sampleMedicines = [];
+
+async function loadSampleMedicines(){
+  try{ const r = await fetch('/data/medicines.json'); sampleMedicines = await r.json(); }catch(e){ sampleMedicines = [ { name:"Paracetamol", uses:"Fever, pain", dosage:"500-1000mg every 4-6h (max 4g/day adult)" } ]; }
 }
 
-// Change language
-function changeLanguage(lang) {
-    currentLanguage = lang;
-    localStorage.setItem('language', lang);
-    updateUI();
-    // Refresh medicines display with new language
-    displayMedicines(medicinesData);
-}
+function attachMedButtons(){ medListEl.querySelectorAll('.view-btn').forEach(b=>{ b.addEventListener('click', ()=>{ const nm = b.dataset.name; const uses = decodeURIComponent(b.dataset.uses || '') || 'See label'; const dosage = decodeURIComponent(b.dataset.dosage || '') || 'See label'; alert(`${nm}\n\nUses: ${uses}\n\nDosage: ${dosage}\n\nAlways follow the label and health professional guidance.`); }); }); }
 
-// Update UI with current language
-function updateUI() {
-    document.getElementById('welcomeText').textContent = translations[currentLanguage].welcomeText;
-    document.getElementById('symptomsTitle').textContent = translations[currentLanguage].symptomsTitle;
-    document.getElementById('medicinesTitle').textContent = translations[currentLanguage].medicinesTitle;
-    document.getElementById('hospitalsTitle').textContent = translations[currentLanguage].hospitalsTitle;
-    document.getElementById('remindersTitle').textContent = translations[currentLanguage].remindersTitle;
-    document.getElementById('profileTitle').textContent = translations[currentLanguage].profileTitle;
-    document.getElementById('phoneLabel').textContent = translations[currentLanguage].phoneLabel;
-    document.getElementById('locationLabel').textContent = translations[currentLanguage].locationLabel;
-    document.getElementById('settingsLabel').textContent = translations[currentLanguage].settingsLabel;
-    document.getElementById('categoriesTitle').textContent = translations[currentLanguage].categoriesTitle;
-    document.getElementById('medicineSearch').placeholder = translations[currentLanguage].searchPlaceholder;
-}
+async function performMedSearch(q){ medListEl.innerHTML = '<div class="muted small">Searching...</div>'; if(!q) { medListEl.innerHTML = ''; sampleMedicines.forEach(m=>{ const el = document.createElement('div'); el.className='med-item'; el.innerHTML = `<div><strong>${m.name}</strong><div class="muted small">${m.uses}</div></div><button class="ghost small view-btn" data-name="${encodeURIComponent(m.name)}" data-uses="${encodeURIComponent(m.uses)}" data-dosage="${encodeURIComponent(m.dosage||'')}">View</button>`; medListEl.appendChild(el); }); attachMedButtons(); return; }
+  try{
+    const online = await searchMedicinesOnline(q);
+    if(online.length){ medListEl.innerHTML=''; online.forEach(m=>{ const el = document.createElement('div'); el.className='med-item'; el.innerHTML = `<div><strong>${m.name}</strong><div class="muted small">${m.uses}</div></div><button class="ghost small view-btn" data-name="${encodeURIComponent(m.name)}" data-uses="${encodeURIComponent(m.uses)}" data-dosage="${encodeURIComponent(m.dosage)}">View</button>`; medListEl.appendChild(el); }); attachMedButtons(); return; } else { medListEl.innerHTML = '<div class="muted">No medicines found online — showing fallback list.</div>'; }
+  }catch(e){ medListEl.innerHTML = '<div class="muted">Online search failed or rate-limited — showing fallback list.</div>'; }
+  sampleMedicines.forEach(m=>{ const el = document.createElement('div'); el.className='med-item'; el.innerHTML = `<div><strong>${m.name}</strong><div class="muted small">${m.uses}</div></div><button class="ghost small view-btn" data-name="${encodeURIComponent(m.name)}" data-uses="${encodeURIComponent(m.uses)}" data-dosage="${encodeURIComponent(m.dosage||'')}">View</button>`; medListEl.appendChild(el); }); attachMedButtons(); }
 
-// Toggle navigation menu
-function toggleMenu() {
-    const navMenu = document.getElementById('navMenu');
-    navMenu.classList.toggle('active');
-}
+document.getElementById('med-search-btn').addEventListener('click', ()=> performMedSearch(medSearchInput.value.trim()));
+document.getElementById('med-refresh').addEventListener('click', ()=> performMedSearch(medSearchInput.value.trim()));
 
-// Show section
-function showSection(sectionId) {
-    // Hide all sections
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    // Show selected section
-    document.getElementById(sectionId).classList.add('active');
-    // Close menu
-    document.getElementById('navMenu').classList.remove('active');
-}
+/* Map and hospitals */
+let map, markers = [];
+async function loadHospitals(){ try{ const r = await fetch('/data/hospitals.json'); return await r.json(); }catch(e){ return [ { name:"City General Hospital", address:"45 Main St", city:"Midtown", lat:37.7749, lng:-122.4194, phone:"(555)111-2222" } ]; } }
+let hospitals = [];
+function initMap(){ try{ map = L.map('map', { attributionControl:false }).setView([37.7749, -122.4194], 12); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19 }).addTo(map); hospitals.forEach(h=>{ const m = L.marker([h.lat,h.lng]).addTo(map).bindPopup(`<strong>${h.name}</strong><div class="muted">${h.address}, ${h.city}<br/>${h.phone}</div>`); markers.push(m); }); }catch(e){ document.getElementById('map').innerHTML = '<div class="muted small">Map failed to load.</div>'; console.warn(e); } }
 
-// Symptom Analysis
-async function analyzeSymptoms() {
-    const symptomText = document.getElementById('symptomInput').value;
-    if (!symptomText.trim()) {
-        alert("Please describe your symptoms");
-        return;
-    }
+function renderHospitalList(filter=''){ const el = document.getElementById('hospital-list'); el.innerHTML=''; const q = (filter||'').toLowerCase(); const list = hospitals.filter(h=> !q || h.name.toLowerCase().includes(q) || h.city.toLowerCase().includes(q)); if(!list.length){ el.innerHTML = '<div class="muted small">No hospitals found</div>'; return; } list.forEach(h=>{ const div = document.createElement('div'); div.className='muted small'; div.innerHTML = `<strong>${h.name}</strong> — ${h.address}, ${h.city} (${h.phone})`; el.appendChild(div); }); }
 
-    const resultDiv = document.getElementById('resultDiv');
-    resultDiv.innerHTML = '<p>Analyzing symptoms...</p>';
+document.getElementById('locate-btn').addEventListener('click', ()=>{ if(!navigator.geolocation){ alert('Geolocation not available'); return; } navigator.geolocation.getCurrentPosition(pos=>{ const lat = pos.coords.latitude, lng = pos.coords.longitude; if(map) map.setView([lat,lng],13); const nearest = hospitals.map(h=> ({...h, dist: haversine(lat,lng,h.lat,h.lng)})).sort((a,b)=>a.dist-b.dist).slice(0,3); const el = document.getElementById('hospital-list'); el.innerHTML = '<div class="muted small" style="font-weight:600">Nearest hospitals</div>'; nearest.forEach(n=>{ const dkm = n.dist.toFixed(1); const div = document.createElement('div'); div.className='muted small'; div.innerHTML = `<strong>${n.name}</strong> — ${n.address} (${dkm} km)`; el.appendChild(div); }); }, err=> alert('Location error: ' + err.message), { timeout:10000 }); });
 
-    try {
-        const response = await fetch('/analyze-symptoms', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ symptoms: symptomText })
-        });
-        const data = await response.json();
-        displayResults(data);
-    } catch (error) {
-        console.error('Error analyzing symptoms:', error);
-        resultDiv.innerHTML = '<p>Error analyzing symptoms. Please try again.</p>';
-    }
-}
+function haversine(lat1,lon1,lat2,lon2){ const R = 6371; const toRad = v => v*Math.PI/180; const dLat = toRad(lat2-lat1); const dLon = toRad(lon2-lon1); const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2; const c = 2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)); return R*c; }
 
-// Display symptom analysis results
-function displayResults(data) {
-    const resultDiv = document.getElementById('resultDiv');
-    let html = '<div class="results">';
-    
-    if (data.diagnosis) {
-        html += `<div class="result-item">
-            <h4>💊 Possible Conditions:</h4>
-            <p>${data.diagnosis}</p>
-        </div>`;
-    }
-    
-    if (data.recommendations) {
-        html += `<div class="result-item">
-            <h4>✅ Recommendations:</h4>
-            <p>${data.recommendations}</p>
-        </div>`;
-    }
-    
-    if (data.medicines) {
-        html += `<div class="result-item">
-            <h4>💉 Suggested Medicines:</h4>
-            <p>${data.medicines}</p>
-        </div>`;
-    }
-    
-    html += `<div class="result-item">
-        <h4>⚠️ When to See Doctor:</h4>
-        <p>Seek immediate medical attention if symptoms worsen or persist for more than 3 days.</p>
-    </div>`;
-    
-    html += '</div>';
-    resultDiv.innerHTML = html;
-    
-    // Text-to-speech for results
-    if ('speechSynthesis' in window) {
-        const text = `${data.diagnosis}. ${data.recommendations}. ${data.medicines}`;
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = getLanguageCode();
-        speechSynthesis.speak(utterance);
-    }
-}
+/* Reminders */
+let reminders = storage.get('ma_reminders', []);
+const reminderListEl = document.getElementById('reminder-list');
+function renderReminders(){ reminderListEl.innerHTML=''; if(!reminders.length){ reminderListEl.innerHTML = '<div class="muted small">No reminders yet</div>'; return; } reminders.forEach((r,i)=>{ const div = document.createElement('div'); div.className='reminder-item'; div.innerHTML = `<div><strong>${r.name}</strong><div class="muted small">${r.dose} • ${r.time}</div></div><div><button class="ghost small" data-i="${i}">Delete</button></div>`; reminderListEl.appendChild(div); }); reminderListEl.querySelectorAll('button[data-i]').forEach(b=>{ b.addEventListener('click', ()=>{ const idx = +b.dataset.i; reminders.splice(idx,1); storage.set('ma_reminders', reminders); renderReminders(); }); }); }
 
-// Voice command for symptoms
-function startVoiceCommand() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-        alert("Speech Recognition not supported in your browser");
-        return;
-    }
+document.getElementById('add-reminder-btn').addEventListener('click', ()=>{ const name = prompt('Medicine name (e.g., Paracetamol)'); if(!name) return; const dose = prompt('Dose (e.g., 500mg)'); if(dose===null) return; const time = prompt('Time (HH:MM 24h) e.g., 18:30'); if(!time) return; reminders.push({ name, dose, time, id: Date.now() }); storage.set('ma_reminders', reminders); renderReminders(); alert('Reminder added. Keep the page open for notifications.'); });
 
-    const recognition = new SpeechRecognition();
-    recognition.lang = getLanguageCode();
-    recognition.start();
+function checkReminders(){ const now = new Date(); const hhmm = now.toTimeString().slice(0,5); reminders.forEach(r=>{ if(r._lastFired === hhmm) return; if(r.time === hhmm){ r._lastFired = hhmm; notify(`Medicine: ${r.name}`, `Time to take ${r.dose}`); } }); }
 
-    recognition.onresult = function(event) {
-        let transcript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-            transcript += event.results[i][0].transcript;
-        }
-        document.getElementById('symptomInput').value = transcript;
-    };
+function notify(title, body){ if(Notification.permission === 'granted'){ new Notification(title, { body }); } else if(Notification.permission !== 'denied'){ Notification.requestPermission().then(p => { if(p==='granted') new Notification(title, { body }); else alert(`${title}\n\n${body}`); }); } else { alert(`${title}\n\n${body}`); } }
+setInterval(checkReminders, 30*1000);
+renderReminders();
 
-    recognition.onerror = function(event) {
-        alert('Error: ' + event.error);
-    };
-}
+/* Chat & OpenAI */
+const chatWindow = document.getElementById('chat-window');
+const chatInput = document.getElementById('chat-input');
+const openaiKeyInput = document.getElementById('openai-key');
+openaiKeyInput.value = storage.get('ma_openai_key', '') || '';
 
-// Analyze symptoms via voice
-function analyzeSymptomsVoice() {
-    startVoiceCommand();
-    setTimeout(() => analyzeSymptoms(), 2000);
-}
+document.getElementById('save-key').addEventListener('click', ()=>{ storage.set('ma_openai_key', openaiKeyInput.value.trim()); alert('API key saved to localStorage for demo. For production, use server-side proxy.'); });
 
-// Get language code for speech
-function getLanguageCode() {
-    const codes = {
-        'en': 'en-US',
-        'hi': 'hi-IN',
-        'ta': 'ta-IN',
-        'te': 'te-IN',
-        'kn': 'kn-IN'
-    };
-    return codes[currentLanguage] || 'en-US';
-}
+function appendChat(msg, from='assistant'){ const d = document.createElement('div'); d.className = 'message ' + (from==='user' ? 'from-user' : 'from-assistant'); d.innerText = msg; chatWindow.appendChild(d); chatWindow.scrollTop = chatWindow.scrollHeight; }
 
-// Display medicines with language support
-function displayMedicines(medicines) {
-    const medicineList = document.getElementById('medicineList');
-    medicineList.innerHTML = '';
-    
-    medicines.forEach(medicine => {
-        const card = document.createElement('div');
-        card.className = 'medicine-card';
-        card.innerHTML = `
-            <div>${medicine.images}</div>
-            <h4>${medicine.name}</h4>
-            <p><strong>${medicineTranslations.uses[currentLanguage]}:</strong> ${medicine.uses}</p>
-            <p><strong>${medicineTranslations.dosage[currentLanguage]}:</strong> ${medicine.dosage}</p>
-            <p><strong>${medicineTranslations.sideEffects[currentLanguage]}:</strong> ${medicine.sideEffects}</p>
-            <p><strong>${medicineTranslations.precautions[currentLanguage]}:</strong> ${medicine.precautions}</p>
-            <p><strong>${medicineTranslations.brandNames[currentLanguage]}:</strong> ${medicine.brand_names}</p>
-            <p><strong>${medicineTranslations.country[currentLanguage]}:</strong> ${medicine.country}</p>
-            <span class="category">${medicine.category}</span>
-        `;
-        medicineList.appendChild(card);
-    });
-}
+async function sendChatMessage(text){ appendChat(text, 'user'); const key = storage.get('ma_openai_key', '') || ''; appendChat('Thinking...', 'assistant'); if(key){ try{ const res = await fetch('https://api.openai.com/v1/chat/completions', { method:'POST', headers:{ 'Content-Type':'application/json', 'Authorization': 'Bearer ' + key }, body: JSON.stringify({ model:'gpt-3.5-turbo', messages:[ {role:'user', content:text} ], max_tokens:400 }) }); if(!res.ok) throw new Error('OpenAI error ' + res.status); const data = await res.json(); const reply = data.choices?.[0]?.message?.content?.trim() || 'No response'; const last = chatWindow.querySelectorAll('.message.from-assistant'); if(last.length) last[last.length-1].remove(); appendChat(reply, 'assistant'); }catch(e){ console.warn(e); const last = chatWindow.querySelectorAll('.message.from-assistant'); if(last.length) last[last.length-1].remove(); appendChat('Online chat failed, showing a helpful suggestion instead.', 'assistant'); appendChat(mockAssistant(text), 'assistant'); } } else { const last = chatWindow.querySelectorAll('.message.from-assistant'); if(last.length) last[last.length-1].remove(); appendChat(mockAssistant(text), 'assistant'); } }
 
-// Search medicines
-function searchMedicines() {
-    const query = document.getElementById('medicineSearch').value.toLowerCase();
-    const filtered = medicinesData.filter(m => 
-        m.name.toLowerCase().includes(query) ||
-        m.uses.toLowerCase().includes(query) ||
-        m.brand_names.toLowerCase().includes(query)
-    );
-    displayMedicines(filtered);
-}
+function mockAssistant(text){ text = text.toLowerCase(); if(text.includes('fever') || text.includes('temperature')) return 'If you have fever, monitor temperature, rest, stay hydrated. Use paracetamol as directed. If fever >39°C or persistent, consult a doctor.'; if(text.includes('paracetamol') || text.includes('acetaminophen')) return 'Paracetamol is commonly used for fever and pain. Typical adult dosing is 500–1000mg every 4–6 hours, up to 4g/day. Avoid overdose and alcohol.'; if(text.includes('remind') || text.includes('reminder')) return 'You can add reminders in the Reminders panel — click + New and provide medicine, dose, and time.'; return 'I can help with symptom checks, medicine info, and reminders. Try: "What to do for fever?" or "Remind me to take paracetamol at 18:30".' }
 
-// Filter by category
-function filterByCategory(category) {
-    const filtered = medicinesData.filter(m => m.category === category);
-    displayMedicines(filtered);
-    
-    // Highlight active category button
-    document.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent.includes(category)) {
-            btn.classList.add('active');
-        }
-    });
-}
+document.getElementById('chat-send').addEventListener('click', ()=> { const v = chatInput.value.trim(); if(!v) return; chatInput.value=''; sendChatMessage(v); });
+chatInput.addEventListener('keydown', e=> { if(e.key==='Enter') { e.preventDefault(); document.getElementById('chat-send').click(); } });
+document.getElementById('clear-chat').addEventListener('click', ()=>{ chatWindow.innerHTML=''; });
 
-// Find hospitals
-function findHospitals() {
-    const location = document.getElementById('hospitalLocation').value;
-    const hospitalList = document.getElementById('hospitalList');
-    
-    if (!location) {
-        alert("Please enter your location");
-        return;
-    }
+/* Startup */
+window.addEventListener('load', async ()=>{
+  try{ sampleMedicines = []; await loadSampleMedicines(); await (async ()=>{ hospitals = await loadHospitals(); })(); initMap(); renderHospitalList(); }catch(e){ console.warn(e); }
+  if(Notification && Notification.permission==='default'){ setTimeout(()=>{ Notification.requestPermission().then(()=>{}); }, 1500); }
+});
 
-    // Sample hospital data (in real app, this would be from API)
-    const hospitals = [
-        {
-            name: "City Medical Hospital",
-            address: `Near ${location}`,
-            phone: "04123456789",
-            distance: "2.5 km",
-            rating: "4.5/5"
-        },
-        {
-            name: "Health Care Center",
-            address: `Downtown ${location}`,
-            phone: "04198765432",
-            distance: "3.2 km",
-            rating: "4.8/5"
-        },
-        {
-            name: "Emergency Care Hospital",
-            address: `Main Road ${location}`,
-            phone: "04156789012",
-            distance: "1.8 km",
-            rating: "4.2/5"
-        }
-    ];
-
-    hospitalList.innerHTML = '';
-    hospitals.forEach(hospital => {
-        const card = document.createElement('div');
-        card.className = 'hospital-card';
-        card.innerHTML = `
-            <h4>🏥 ${hospital.name}</h4>
-            <p><strong>Address:</strong> ${hospital.address}</p>
-            <p><strong>Phone:</strong> <a href="tel:${hospital.phone}">${hospital.phone}</a></p>
-            <p><strong>Distance:</strong> ${hospital.distance}</p>
-            <p><strong>Rating:</strong> ${hospital.rating}</p>
-            <button onclick="callHospital('${hospital.phone}')" class="btn btn-primary">Call Now</button>
-        `;
-        hospitalList.appendChild(card);
-    });
-}
-
-// Call hospital
-function callHospital(phone) {
-    window.location.href = `tel:${phone}`;
-}
-
-// Add reminder
-function addReminder() {
-    const medicineName = document.getElementById('medicineName').value;
-    const doseCount = document.getElementById('doseCount').value;
-    const reminderTime = document.getElementById('reminderTime').value;
-
-    if (!medicineName) {
-        alert("Please enter medicine name");
-        return;
-    }
-
-    const reminder = {
-        id: Date.now(),
-        medicine: medicineName,
-        dose: doseCount,
-        time: reminderTime
-    };
-
-    reminders.push(reminder);
-    localStorage.setItem('reminders', JSON.stringify(reminders));
-    
-    displayReminders();
-    document.getElementById('medicineName').value = '';
-    document.getElementById('doseCount').value = '1';
-
-    // Set browser notification
-    setNotification(medicineName, reminderTime);
-}
-
-// Display reminders
-function displayReminders() {
-    const reminderList = document.getElementById('reminderList');
-    reminderList.innerHTML = '';
-
-    reminders.forEach(reminder => {
-        const card = document.createElement('div');
-        card.className = 'reminder-card';
-        card.innerHTML = `
-            <h4>⏰ ${reminder.medicine}</h4>
-            <p><strong>Dose:</strong> ${reminder.dose} tablet(s)</p>
-            <p><strong>Time:</strong> ${reminder.time}</p>
-            <button onclick="deleteReminder(${reminder.id})">Delete</button>
-        `;
-        reminderList.appendChild(card);
-    });
-}
-
-// Delete reminder
-function deleteReminder(id) {
-    reminders = reminders.filter(r => r.id !== id);
-    localStorage.setItem('reminders', JSON.stringify(reminders));
-    displayReminders();
-}
-
-// Set notification
-function setNotification(medicine, time) {
-    if ('Notification' in window && Notification.permission === 'granted') {
-        const notification = new Notification(`Medicine Reminder: ${medicine}`, {
-            icon: '💊',
-            badge: '🏥'
-        });
-    }
-}
-
-// Request notification permission
-if ('Notification' in window && Notification.permission === 'default') {
-    Notification.requestPermission();
-}
-
-// Save phone number
-function savePhoneNumber() {
-    const phone = document.getElementById('phoneNumber').value;
-    if (phone) {
-        userProfile.phoneNumber = phone;
-        localStorage.setItem('phoneNumber', phone);
-        alert("Phone number saved!");
-    }
-}
-
-// Save location
-function saveLocation() {
-    const location = document.getElementById('location').value;
-    if (location) {
-        userProfile.location = location;
-        localStorage.setItem('location', location);
-        alert("Location saved!");
-    }
-}
-
-// Logout
-function logout() {
-    localStorage.clear();
-    window.location.reload();
-}
-
-// Load reminders on startup
-function loadReminders() {
-    const saved = localStorage.getItem('reminders');
-    if (saved) {
-        reminders = JSON.parse(saved);
-        displayReminders();
-    }
-}
-
-// Initialize reminders
-window.addEventListener('load', loadReminders);
+// med search enter
+medSearchInput.addEventListener('keydown', e=> { if(e.key==='Enter') performMedSearch(e.target.value.trim()); });
